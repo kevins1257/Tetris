@@ -8,9 +8,9 @@ import java.util.Random;
 
 /**
  * A clean, playable Tetris game using Java Swing.
- * Written for a college CS project – readable, maintainable, and fun.
+ * Written for a project purpose – readable, maintainable, and fun.
  *
- * @author Your Name
+ * @author Kevin Shah
  * @version 1.0
  */
 public class TetrisGame extends JPanel {
