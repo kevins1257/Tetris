@@ -15,13 +15,13 @@ import java.util.Random;
  */
 public class TetrisGame extends JPanel {
 
-    // ==================== CONSTANTS ====================
+
     private static final int ROWS = 20;
     private static final int COLS = 10;
     private static final int BLOCK_SIZE = 30;
     private static final int INITIAL_DELAY = 500; // ms per drop
 
-    // Tetromino colors (index 0 = empty)
+   
     private static final Color[] COLORS = {
             Color.BLACK,
             Color.CYAN, // I
@@ -33,7 +33,7 @@ public class TetrisGame extends JPanel {
             Color.RED // Z
     };
 
-    // All 7 tetromino shapes (4 rotations not precomputed – we rotate on fly)
+    
     private static final int[][][] SHAPES = {
             { { 1, 1, 1, 1 } }, // I
             { { 1, 1 }, { 1, 1 } }, // O
@@ -44,14 +44,13 @@ public class TetrisGame extends JPanel {
             { { 0, 0, 1 }, { 1, 1, 1 } } // L
     };
 
-    // ==================== GAME STATE ====================
+    
     private final int[][] board = new int[ROWS][COLS];
     private Tetromino currentPiece;
     private int score = 0;
     private JLabel scoreLabel;
     private Timer dropTimer;
 
-    // ==================== CONSTRUCTOR ====================
     public TetrisGame() {
         setupPanel();
         setupScoreLabel();
@@ -61,12 +60,12 @@ public class TetrisGame extends JPanel {
         dropTimer.start();
     }
 
-    // ==================== SETUP METHODS ====================
+    ///methods
     private void setupPanel() {
         setPreferredSize(new Dimension(COLS * BLOCK_SIZE + 200, ROWS * BLOCK_SIZE));
         setBackground(Color.DARK_GRAY);
         setFocusable(true);
-        setLayout(null); // We'll position score label manually
+        setLayout(null); //positions
     }
 
     private void setupScoreLabel() {
@@ -98,7 +97,7 @@ public class TetrisGame extends JPanel {
         });
     }
 
-    // ==================== GAME LOGIC ====================
+    ///logic
     private void spawnNewPiece() {
         Random rand = new Random();
         int type = rand.nextInt(SHAPES.length);
@@ -184,13 +183,13 @@ public class TetrisGame extends JPanel {
                 }
             }
             if (full) {
-                // Shift all rows above down
+              
                 for (int above = r; above > 0; above--) {
                     System.arraycopy(board[above - 1], 0, board[above], 0, COLS);
                 }
-                Arrays.fill(board[0], 0); // Now works!
+                Arrays.fill(board[0], 0); 
                 linesCleared++;
-                r++; // recheck current row after shift
+                r++; 
             }
         }
 
@@ -205,7 +204,6 @@ public class TetrisGame extends JPanel {
         scoreLabel.setText("Score: " + score);
     }
 
-    // ==================== VALIDATION & UTILS ====================
     private boolean isValidPosition(Tetromino p) {
         for (int r = 0; r < p.shape.length; r++) {
             for (int c = 0; c < p.shape[0].length; c++) {
@@ -242,12 +240,11 @@ public class TetrisGame extends JPanel {
         return copy;
     }
 
-    // ==================== PAINTING ====================
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Draw board
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 int value = board[r][c];
@@ -259,8 +256,6 @@ public class TetrisGame extends JPanel {
                 g.drawRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
-
-        // Draw current falling piece
         if (currentPiece != null) {
             for (int r = 0; r < currentPiece.shape.length; r++) {
                 for (int c = 0; c < currentPiece.shape[0].length; c++) {
@@ -277,7 +272,6 @@ public class TetrisGame extends JPanel {
         }
     }
 
-    // ==================== MAIN ====================
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Tetris – CS Project");
@@ -294,11 +288,6 @@ public class TetrisGame extends JPanel {
         });
     }
 }
-
-/**
- * Simple immutable tetromino representation.
- * Uses deep clone to avoid reference bugs.
- */
 class Tetromino implements Cloneable {
     int[][] shape;
     int x, y, type;
