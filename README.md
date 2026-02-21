@@ -60,4 +60,3 @@ Perfect — clean, commented, and 100% original.
 | `Up Arrow`    | Rotate              |
 | `Space`       | Hard drop (instant) |
 
-Have a nice day! 
